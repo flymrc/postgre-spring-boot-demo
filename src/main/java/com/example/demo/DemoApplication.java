@@ -50,8 +50,7 @@ public class DemoApplication {
         .and()
         .authorizeRequests()
         .antMatchers("/index.html", "/", "/home", "/login").permitAll()
-        .antMatchers("/resources/**").permitAll()
-        .antMatchers("/*.js", "/*.css").permitAll()
+        .antMatchers("/*.js", "/*.css", "/favicon.ico").permitAll()
         .anyRequest().authenticated()
         .and().csrf()
         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
