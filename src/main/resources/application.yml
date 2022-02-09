@@ -1,0 +1,17 @@
+security:
+  user:
+    password: password
+spring:
+  datasource:
+    platform: postgres
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: example
+  jpa:
+    database: POSTGRESQL
+    show-sql: true
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+      jdbc:
+        lob.non_contextual_creation: true
