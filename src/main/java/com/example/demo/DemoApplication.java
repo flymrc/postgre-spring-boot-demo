@@ -13,27 +13,24 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
 import java.security.Principal;
-import java.util.HashMap;
+import java.util.Collections;
 import java.util.Map;
-import java.util.UUID;
 
 @SpringBootApplication
 @RestController
 public class DemoApplication {
   private static final Logger log = LoggerFactory.getLogger(DemoApplication.class);
 
+  @RequestMapping("/token")
+  public Map<String,String> token(HttpSession session) {
+    return Collections.singletonMap("token", session.getId());
+  }
+
   @RequestMapping("/user")
   public Principal user(Principal user) {
     return user;
-  }
-
-  @RequestMapping("/resource")
-  public Map<String, Object> home() {
-    Map<String, Object> model = new HashMap<String, Object>();
-    model.put("id", UUID.randomUUID().toString());
-    model.put("content", "Hello World");
-    return model;
   }
 
   public static void main(String[] args) {
