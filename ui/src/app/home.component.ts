@@ -14,7 +14,7 @@ export class HomeComponent {
     http.get('token').subscribe({
       next: (data: any) => {
         const token = data['token'];
-        http.get('http://localhost:9000', { headers: new HttpHeaders().set('X-Auth-Token', token) })
+        http.get('resource', { headers: new HttpHeaders().set('X-Auth-Token', token) })
           .subscribe(response => this.greeting = response);
       },
       error: () => { }
