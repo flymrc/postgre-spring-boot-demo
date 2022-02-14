@@ -4,30 +4,28 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.cloud.gateway.route.RouteLocator;
+import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
+import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.servlet.http.HttpSession;
-import java.security.Principal;
-import java.util.Collections;
-import java.util.Map;
 
 @SpringBootApplication
 @RestController
 public class DemoApplication {
   private static final Logger log = LoggerFactory.getLogger(DemoApplication.class);
 
-  @RequestMapping("/token")
-  public Map<String,String> token(HttpSession session) {
-    return Collections.singletonMap("token", session.getId());
-  }
-
-  @RequestMapping("/user")
-  public Principal user(Principal user) {
-    return user;
-  }
-
   public static void main(String[] args) {
     SpringApplication.run(DemoApplication.class, args);
+  }
+
+  @Bean
+  public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
+    return builder.routes()
+      .route(r -> r
+        .path("/resource")
+        .filters(f -> f.rewritePath("/resource", "/"))
+        .uri("http://localhost:9000")
+      )
+      .build();
   }
 }
