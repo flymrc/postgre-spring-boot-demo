@@ -17,12 +17,12 @@ security:
     password: password
   oauth2:
     client:
-      accessTokenUri: http://localhost:9999/uaa/oauth/token
-      userAuthorizationUri: http://localhost:9999/uaa/oauth/authorize
-      clientId: acme
-      clientSecret: acmesecret
+      access-token-uri: http://localhost:9999/uaa/oauth/token
+      user-authorization-uri: http://localhost:9999/uaa/oauth/authorize
+      client-id: acme
+      client-secret: acmesecret
     resource:
-      userInfoUri: http://localhost:9999/uaa/user
+      user-info-uri: http://localhost:9999/uaa/user
 
 zuul:
   routes:
