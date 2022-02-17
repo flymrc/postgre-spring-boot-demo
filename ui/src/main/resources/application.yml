@@ -18,12 +18,12 @@ security:
     password: password
   oauth2:
     client:
-      access-token-uri: http://localhost:9999/uaa/oauth/token
-      user-authorization-uri: http://localhost:9999/uaa/oauth/authorize
-      client-id: acme
-      client-secret: acmesecret
+      accessTokenUri: http://localhost:9999/uaa/oauth/token
+      userAuthorizationUri: http://localhost:9999/uaa/oauth/authorize
+      clientId: acme
+      clientSecret: acmesecret
     resource:
-      user-info-uri: http://localhost:9999/uaa/user
+      userInfoUri: http://localhost:9999/uaa/user
 zuul:
   routes:
     resource:
@@ -36,3 +36,4 @@ zuul:
 logging:
   level:
     org.springframework.security: DEBUG
+#    org.springframework.web: DEBUG
