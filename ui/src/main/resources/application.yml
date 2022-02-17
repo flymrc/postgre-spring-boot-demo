@@ -13,8 +13,6 @@
 #      jdbc.lob.non_contextual_creation: true
 
 security:
-  user:
-    password: password
   oauth2:
     client:
       access-token-uri: http://localhost:9999/uaa/oauth/token
