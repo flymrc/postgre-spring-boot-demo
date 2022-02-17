@@ -1,6 +1,4 @@
-spring:
-  aop:
-    proxy-target-class: true
+#spring:
 #  datasource:
 #    platform: postgres
 #    url: jdbc:postgresql://localhost:5432/postgres
@@ -13,6 +11,7 @@ spring:
 #    hibernate:
 #      ddl-auto: update
 #      jdbc.lob.non_contextual_creation: true
+
 security:
   user:
     password: password
@@ -24,6 +23,7 @@ security:
       clientSecret: acmesecret
     resource:
       userInfoUri: http://localhost:9999/uaa/user
+
 zuul:
   routes:
     resource:
@@ -36,4 +36,4 @@ zuul:
 logging:
   level:
     org.springframework.security: DEBUG
-#    org.springframework.web: DEBUG
+    org.springframework.web: DEBUG
