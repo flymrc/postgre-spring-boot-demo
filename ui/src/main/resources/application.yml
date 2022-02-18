@@ -1,9 +1,4 @@
-security:
-  user:
-    password: password
-spring:
-  session:
-    store-type: redis
+#spring:
 #  datasource:
 #    platform: postgres
 #    url: jdbc:postgresql://localhost:5432/postgres
@@ -16,9 +11,27 @@ spring:
 #    hibernate:
 #      ddl-auto: update
 #      jdbc.lob.non_contextual_creation: true
+
+security:
+  oauth2:
+    client:
+      access-token-uri: http://localhost:9999/uaa/oauth/token
+      user-authorization-uri: http://localhost:9999/uaa/oauth/authorize
+      client-id: acme
+      client-secret: acmesecret
+    resource:
+      user-info-uri: http://localhost:9999/uaa/user
+
 zuul:
   routes:
     resource:
       path: /resource/**
       url: http://localhost:9000
-      sensitive-headers:
+    user:
+      path: /user/**
+      url: http://localhost:9999/uaa/user
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+    org.springframework.web: DEBUG

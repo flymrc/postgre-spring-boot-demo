@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import { AppService } from './app.service';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
 import { finalize } from 'rxjs/operators';
 
 @Component({
@@ -10,14 +8,34 @@ import { finalize } from 'rxjs/operators';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  constructor(private app: AppService, private http: HttpClient, private router: Router) {
-    this.app.authenticate(undefined, undefined);
+  title = "Demo";
+  authenticated = false;
+  greeting: any = {};
+
+  constructor(private http: HttpClient) {
+    this.authenticate();
   }
+
+  authenticate() {
+    this.http.get('user').subscribe({
+      next: (response: any) => {
+        if (response['name']) {
+          this.authenticated = true;
+          this.http.get('resource').subscribe(data => this.greeting = data);
+        } else {
+          this.authenticated = false;
+        }
+      },
+      error: () => {
+        this.authenticated = false;
+      }
+    });
+  }
+
   logout() {
     this.http.post('logout', {}).pipe(
       finalize(() => {
-        this.app.authenticated = false;
-        this.router.navigateByUrl('/login');
+        this.authenticated = false;
       })
     ).subscribe();
   }
