@@ -1,1 +1,1 @@
-# postgre-spring-boot-demo
+# The Spring Security and Angular stack.
