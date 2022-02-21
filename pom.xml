@@ -9,7 +9,7 @@
   <name>Spring Pairs Samples OAuth2</name>
 
   <modules>
-    <module>authserver</module>
+    <module>gateway</module>
     <module>ui</module>
     <module>resource</module>
   </modules>

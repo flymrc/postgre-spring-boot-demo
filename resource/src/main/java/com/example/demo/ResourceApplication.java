@@ -2,7 +2,9 @@ package com.example.demo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -10,8 +12,7 @@ import java.util.UUID;
 
 @SpringBootApplication
 @RestController
-@EnableResourceServer
-public class ResourceApplication {
+public class ResourceApplication extends WebSecurityConfigurerAdapter {
 
   @RequestMapping("/")
   public Message home() {
@@ -20,6 +21,12 @@ public class ResourceApplication {
 
   public static void main(String[] args) {
     SpringApplication.run(ResourceApplication.class, args);
+  }
+
+  @Override
+  protected void configure(HttpSecurity http) throws Exception {
+    http.csrf()
+      .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
   }
 }
 
