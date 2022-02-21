@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>oauth2-authserver</artifactId>
+	<artifactId>double-admin</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Oauth2 Server</name>
+	<name>Double admin</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
