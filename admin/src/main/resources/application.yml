@@ -1,13 +1,10 @@
-server:
-  port: 9999
-  context-path: /uaa
+server.port: 8082
+security.sessions: NEVER
 
-security:
-  user:
-    password: password
-  oauth2:
-    client:
-      client-id: acme
-      client-secret: acmesecret
-      authorized-grant-types: authorization_code,refresh_token,password
-      scope: openid
+spring:
+  session:
+    store-type: redis
+
+logging:
+  level:
+    org.springframework.security: DEBUG
