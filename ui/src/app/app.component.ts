@@ -1,42 +1,33 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { finalize } from 'rxjs/operators';
+
+interface Greeting {
+  id: string,
+  content: string,
+}
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+
 export class AppComponent {
-  title = "Demo";
+  title = 'Demo';
+  greeting?: Greeting;
   authenticated = false;
-  greeting: any = {};
-
+  user = '';
   constructor(private http: HttpClient) {
-    this.authenticate();
-  }
-
-  authenticate() {
-    this.http.get('user').subscribe({
-      next: (response: any) => {
-        if (response['name']) {
+    http.get('/user').subscribe({
+      next: (data: any) => {
+        if (data['name']) {
           this.authenticated = true;
-          this.http.get('/resource').subscribe(data => this.greeting = data);
+          http.get('/resource').subscribe((response: any) => this.greeting = response);
         } else {
           this.authenticated = false;
         }
       },
-      error: () => {
-        this.authenticated = false;
-      }
+      error: () => { this.authenticated = false; }
     });
-  }
-
-  logout() {
-    this.http.post('logout', {}).pipe(
-      finalize(() => {
-        this.authenticated = false;
-      })
-    ).subscribe();
   }
 }
