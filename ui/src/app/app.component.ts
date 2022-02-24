@@ -16,12 +16,13 @@ export class AppComponent {
   title = 'Demo';
   greeting?: Greeting;
   authenticated = false;
-  user = '';
+  user: any = '';
   constructor(private http: HttpClient) {
     http.get('/user').subscribe({
       next: (data: any) => {
         if (data['name']) {
           this.authenticated = true;
+          this.user = data;
           http.get('/resource').subscribe((response: any) => this.greeting = response);
         } else {
           this.authenticated = false;

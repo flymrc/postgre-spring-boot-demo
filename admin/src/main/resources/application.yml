@@ -1,5 +1,8 @@
 server.port: 8082
-security.sessions: NEVER
+security:
+  user:
+    role: USER,ADMIN
+  sessions: NEVER
 
 spring:
   session:
