@@ -1,0 +1,21 @@
+server:
+  port: 8080
+
+security:
+  sessions: ALWAYS
+  ignored:
+    - favicon.ico
+
+spring:
+  session:
+    store-type: redis
+
+zuul:
+  sensitive-headers:
+  routes:
+    admin:
+      url: http://localhost:8082
+    ui:
+      url: http://localhost:8081
+    resource:
+      url: http://localhost:9000
