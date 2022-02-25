@@ -15,14 +15,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment= SpringBootTest.WebEnvironment.DEFINED_PORT)
+@SpringBootTest(properties="security.user.password:foo", webEnvironment= SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class AdminApplicationTests {
 
   @LocalServerPort
   private int port;
-
-  @Value("${security.oauth2.client.user-authorization-uri}")
-  private String authorizeUri;
 
   private TestRestTemplate template = new TestRestTemplate();
 
@@ -34,23 +31,20 @@ public class AdminApplicationTests {
 
   @Test
   public void userEndpointProtected() {
-    ResponseEntity<String> response = template.getForEntity("http://localhost:{port}/user", String.class, port);
-    assertEquals(HttpStatus.FOUND, response.getStatusCode());
-    assertEquals("http://localhost:" + port + "/login", response.getHeaders().getLocation().toString());
+    ResponseEntity<String> response = template.getForEntity("http://localhost:" + port + "/user", String.class);
+    assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
   }
 
   @Test
   public void resourceEndpointProtected() {
-    ResponseEntity<String> response = template.getForEntity("http://localhost:{port}/resource", String.class, port);
-    assertEquals(HttpStatus.FOUND, response.getStatusCode());
-    assertEquals("http://localhost:" + port + "/login", response.getHeaders().getLocation().toString());
+    ResponseEntity<String> response = template.getForEntity("http://localhost:" + port + "/resource", String.class);
+    assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
   }
 
   @Test
-  public void loginRedirects() {
-    ResponseEntity<String> response = template.getForEntity("http://localhost:{port}/login", String.class, port);
-    assertEquals(HttpStatus.FOUND, response.getStatusCode());
-    String location = response.getHeaders().getFirst("Location");
-    assertTrue("Wrong location: " + location, location.startsWith(authorizeUri));
+  public void loginSucceeds() {
+    TestRestTemplate template = new TestRestTemplate("user", "foo");
+    ResponseEntity<String> response = template.getForEntity("http://localhost:" + port + "/user", String.class);
+    assertEquals(HttpStatus.OK, response.getStatusCode());
   }
 }
