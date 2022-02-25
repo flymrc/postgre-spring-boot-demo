@@ -6,11 +6,6 @@ export interface Greeting {
   content: string;
 }
 
-export interface User {
-  name: string;
-  roles: string;
-}
-
 @Injectable()
 export class AppService {
 

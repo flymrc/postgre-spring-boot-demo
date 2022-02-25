@@ -13,5 +13,4 @@ export class ChangesComponent {
       this.data = response;
     });
   }
-
 }

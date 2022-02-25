@@ -7,10 +7,9 @@ import { Greeting } from './app.service';
 })
 export class ReadComponent {
 
-  greeting?: Greeting;
+  greeting: Greeting = { id: "", content: "" };
 
   constructor(private http: HttpClient) {
     http.get('/resource').subscribe((data: any) => this.greeting = data);
   }
-
 }

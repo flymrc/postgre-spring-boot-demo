@@ -14,7 +14,7 @@ interface Greeting {
 
 export class AppComponent {
   title = 'Demo';
-  greeting?: Greeting;
+  greeting: Greeting = { id: "", content: "" };
   authenticated = false;
   user: any = '';
   constructor(private http: HttpClient) {

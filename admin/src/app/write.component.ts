@@ -7,16 +7,15 @@ import { Greeting } from './app.service';
 })
 export class WriteComponent {
 
-  greeting!: Greeting;
+  greeting: Greeting = { id: "", content: "" };
 
   constructor(private http: HttpClient) {
     this.http.get('/resource').subscribe((data: any) => this.greeting = data);
   }
 
   update() {
-    this.http.post('/resource', { content: this.greeting['content'] }).subscribe((response: any) => {
+    this.http.post('/resource/changes', { content: this.greeting['content'] }).subscribe((response: any) => {
       this.greeting = response;
     });
   }
-
 }
