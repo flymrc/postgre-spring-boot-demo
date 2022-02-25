@@ -16,7 +16,7 @@ import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment= SpringBootTest.WebEnvironment.DEFINED_PORT)
-public class UiApplicationTests {
+public class AdminApplicationTests {
 
   @LocalServerPort
   private int port;
